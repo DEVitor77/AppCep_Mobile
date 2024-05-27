@@ -22,7 +22,8 @@ export default function App() {
         <TextInput
           style={{
             borderColor: "#000000", borderWidth: 2, width: 200,
-            fontSize: 18, marginTop: 30, marginEnd: 20, borderRadius: 10
+            fontSize: 18, marginTop: 30, marginEnd: 20, borderRadius: 10,
+            padding: 15
           }}
           value={Cep}
           onChangeText={(texto) => setCep(texto)}
@@ -51,15 +52,13 @@ export default function App() {
         placeholder="Cidade" />
       <TextInput
         style={{
-          borderColor: "#000000", borderWidth: 2, width: 80,
+          borderColor: "#000000", borderWidth: 2, width: 100,
           fontSize: 18, marginTop: 10, marginEnd: 20, borderRadius: 10,
-          marginHorizontal: 20
+          marginHorizontal: 20, padding: 15
         }}
         value={uf}
         onChangeText={(texto) => setUf(texto)}
-        placeholder="Estado"
-        textAlign="center"
-      />
+        placeholder="Estado" />
 
 
 
