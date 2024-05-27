@@ -1,15 +1,33 @@
 import React, { useState } from "react"
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from "react-native"
+import Api from './src/services/api'
 
 export default function App() {
 
   const [Cep, setCep] = useState("")
   const [Logradouro, setLogradouro] = useState("")
   const [Bairro, setBairro] = useState("")
-  const [localidade, setlocalidadede] = useState("")
+  const [localidade, setlocalida] = useState("")
   const [uf, setUf] = useState("")
 
+  async function buscarCep() {
+    if (Cep == "") {
+      Alert.alert("Cep Invalido!")
+      setCep("")
+    }
 
+    try {
+      const response = await Api.get(`/${Cep}/json/`)
+      setLogradouro(response.data.logradouro)
+      setBairro(response.data.bairro)
+      setlocalida(response.data.localidade)
+      setUf(response.data.uf)
+    } catch (error) {
+      console.log("ERRO" + error)
+    }
+
+
+  }
 
   return (
     <View style={styles.container}>
@@ -30,7 +48,7 @@ export default function App() {
           placeholder="Cep"
         />
 
-        <TouchableOpacity style={styles.botaoBuscar}>
+        <TouchableOpacity style={styles.botaoBuscar} onPress={buscarCep}>
           <Text style={styles.textoBotaoBuscar}>Buscar</Text>
         </TouchableOpacity>
 
@@ -48,7 +66,7 @@ export default function App() {
       <TextInput
         style={styles.caixaTexto}
         value={localidade}
-        onChangeText={(texto) => setlocalidadede(texto)}
+        onChangeText={(texto) => setlocalida(texto)}
         placeholder="Cidade" />
       <TextInput
         style={{
